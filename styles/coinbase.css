@@ -1,0 +1,122 @@
+body {
+    font-family: 'Helvetica Neue', Arial, sans-serif;
+    max-width: 700px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #0a2540;
+    color: #fff;
+}
+.header {
+    background: linear-gradient(135deg, #1652f0, #0a2a66); /* Sleek gradient */
+    color: #fff;
+    padding: 20px;
+    border-radius: 10px 10px 0 0;
+    text-align: center;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+}
+.wallet-box, .transaction-box {
+    border: 1px solid #1e3a5f;
+    padding: 20px;
+    margin: 10px 0;
+    background-color: #132f4c;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.3);
+}
+.wallet-box h3, .transaction-box h3 {
+    margin: 0 0 15px 0;
+    color: #1652f0;
+    font-size: 18px;
+}
+input, button {
+    margin: 8px 0;
+    padding: 10px;
+    width: 100%;
+    box-sizing: border-box;
+    border: 1px solid #2b5280;
+    border-radius: 4px;
+    background-color: #1e3a5f;
+    color: #fff;
+}
+button {
+    background-color: #1652f0;
+    color: #fff;
+    border: none;
+    cursor: pointer;
+    font-weight: bold;
+}
+button:hover {
+    background-color: #123db5;
+}
+.transaction-box {
+    display: none;
+}
+.detail-label {
+    font-weight: bold;
+    color: #a3bffa;
+}
+.warning {
+    color: #ff6b6b;
+    font-size: 12px;
+}
+.usd-value {
+    color: #1652f0;
+    font-weight: bold;
+    margin-left: 10px;
+}
+.wallet-balance {
+    background: linear-gradient(135deg, #132f4c, #1e3a5f);
+    padding: 15px;
+    border-radius: 8px;
+    text-align: center;
+    margin-bottom: 15px;
+    cursor: pointer;
+}
+.btc-balance {
+    font-size: 32px;
+    color: #fff;
+    font-weight: bold;
+    margin: 0;
+}
+.usd-balance {
+    font-size: 18px;
+    color: #a3bffa;
+    margin: 5px 0 0 0;
+}
+.wallet-details {
+    font-size: 13px;
+    color: #a3bffa;
+    line-height: 1.5;
+}
+.wallet-address {
+    word-break: break-all;
+    color: #7895cb;
+}
+.edit-input {
+    font-size: inherit;
+    color: #fff;
+    background-color: #1e3a5f;
+    border: 2px solid #1652f0;
+    border-radius: 4px;
+    padding: 5px;
+    width: auto;
+    display: inline-block;
+    text-align: center;
+}
+.app-title {
+    font-size: 28px;
+    font-weight: 700;
+    color: #fff;
+    cursor: pointer;
+    display: block;
+    text-align: center;
+    letter-spacing: 1px;
+    margin: 0;
+}
+#btcRateDisplay {
+    display: block;
+    text-align: center;
+    font-size: 14px;
+    color: #a3bffa; /* Lighter for contrast */
+    margin: 8px 0 0 0;
+    letter-spacing: 0.5px;
+}

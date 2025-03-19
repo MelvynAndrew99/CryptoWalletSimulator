@@ -4,86 +4,26 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>CashAppLite</title>
-    <style>
-        body {
-            font-family: 'Helvetica Neue', Arial, sans-serif;
-            max-width: 700px;
-            margin: 0 auto;
-            padding: 20px;
-            background-color: #000;
-            color: #fff;
-        }
-        .header {
-            background-color: #00d632;
-            color: #000;
-            padding: 10px 20px;
-            border-radius: 5px 5px 0 0;
-            text-align: center;
-        }
-        .wallet-box, .transaction-box {
-            border: 1px solid #333;
-            padding: 20px;
-            margin: 10px 0;
-            background-color: #1a1a1a;
-            border-radius: 0 0 5px 5px;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
-        }
-        .wallet-box h3, .transaction-box h3 {
-            margin-top: 0;
-            color: #00d632;
-        }
-        input, button {
-            margin: 8px 0;
-            padding: 10px;
-            width: 100%;
-            box-sizing: border-box;
-            border: 1px solid #555;
-            border-radius: 4px;
-            background-color: #333;
-            color: #fff;
-        }
-        button {
-            background-color: #00d632;
-            color: #000;
-            border: none;
-            cursor: pointer;
-            font-weight: bold;
-        }
-        button:hover {
-            background-color: #00b82a;
-        }
-        .transaction-box {
-            display: none;
-        }
-        .detail-label {
-            font-weight: bold;
-            color: #ccc;
-        }
-        .warning {
-            color: #ff4444;
-            font-size: 12px;
-        }
-        .usd-value {
-            color: #00d632; /* Matches your green theme */
-            font-weight: bold;
-            margin-left: 10px;
-        }
-    </style>
+    <link id="themeStylesheet" rel="stylesheet" href="styles/default.css">
 </head>
 <body>
     <div class="header">
-        <h1>Cashe App</h1>
+        <div class="app-title" id="appTitle">Cashe App</div>
         <p id="btcRateDisplay">BTC Trading • 1 BTC = $83,777.16 USD</p>
     </div>
 
-    <!-- Receive Section -->
     <div class="wallet-box">
         <h3>BTC Wallet</h3>
-        <p><span class="detail-label">Address:</span> 1J7mdg5rbQyUHENYdx39WVWK7fsLpEoXZy</p>
-        <p>Share this address to receive BTC.</p>
+        <div class="wallet-balance" id="walletBalance">
+            <div class="btc-balance" id="btcBalance">0.1254 BTC</div>
+            <div class="usd-balance" id="usdBalance">$10,405.32</div>
+        </div>
+        <div class="wallet-details">
+            <p><span class="detail-label">Address:</span> <span class="wallet-address" id="walletAddress">1J7mdg5rbQyUHENYdx39WVWK7fsLpEoXZy</span></p>
+            <p>Share this address to receive BTC</p>
+        </div>
     </div>
 
-    <!-- Send Section -->
     <div class="wallet-box">
         <h3>Send BTC</h3>
         <label>From Address:</label>
@@ -96,7 +36,6 @@
         <p class="warning">Note: Transaction may take 24hrs to process due to server delay.</p>
     </div>
 
-    <!-- Transaction Details -->
     <div class="transaction-box" id="transactionDetails">
         <h3>Transaction Receipt</h3>
         <p><span class="detail-label">From:</span> <span id="txFrom"></span></p>
@@ -107,27 +46,100 @@
     </div>
 
     <script>
-        let BTC_RATE = 83777.16; // Fallback hardcoded rate
+        let BTC_RATE = 83777.16;
         const DEFAULT_FROM = '1J7mdg5rbQyUHENYdx39WVWK7fsLpEoXZy';
         const DEFAULT_TO = '3KzP9vLqL8nX4rW9mM5pY2QwX7sTfBjdVc';
         const DEFAULT_AMOUNT = 0.0024;
+        let walletBalance = parseFloat(localStorage.getItem('walletBalance')) || 0.1254;
+        let appTitle = localStorage.getItem('appTitle') || 'Cashe App';
 
-        // Fetch live BTC price from CryptoCompare
+        const themes = [
+            'styles/default.css',
+            'styles/coinbase.css',
+            'styles/binance.css',
+            'styles/retro90s.css'
+        ];
+        let currentThemeIndex = parseInt(localStorage.getItem('themeIndex')) || 0;
+
+        // Function to update theme and handle fallback
+        function setTheme(index) {
+            currentThemeIndex = index;
+            const stylesheet = document.getElementById('themeStylesheet');
+            stylesheet.href = themes[currentThemeIndex];
+            localStorage.setItem('themeIndex', currentThemeIndex);
+
+            // Check if the stylesheet loaded successfully
+            stylesheet.onerror = function() {
+                console.error('Theme failed to load:', themes[currentThemeIndex]);
+                currentThemeIndex = 0; // Fallback to default
+                stylesheet.href = themes[currentThemeIndex];
+                localStorage.setItem('themeIndex', currentThemeIndex);
+            };
+        }
+
+        // Theme switching with arrow keys
+        document.addEventListener('keydown', function(event) {
+            if (event.key === 'ArrowRight') {
+                let newIndex = (currentThemeIndex + 1) % themes.length;
+                setTheme(newIndex);
+            } else if (event.key === 'ArrowLeft') {
+                let newIndex = (currentThemeIndex - 1 + themes.length) % themes.length;
+                setTheme(newIndex);
+            }
+        });
+
         async function fetchBtcPrice() {
             try {
                 const response = await fetch('https://min-api.cryptocompare.com/data/price?fsym=BTC&tsyms=USD');
                 const data = await response.json();
-                BTC_RATE = data.USD; // Extract USD value from {"USD":82889.48}
+                BTC_RATE = data.USD;
                 document.getElementById('btcRateDisplay').textContent = `BTC Trading • 1 BTC = $${BTC_RATE.toLocaleString()} USD`;
-                updateUsdValue(); // Update inline USD value after fetching rate
+                updateUsdValue();
+                updateWalletBalance();
             } catch (error) {
                 console.error('Failed to fetch BTC price:', error);
                 document.getElementById('btcRateDisplay').textContent = `BTC Trading • 1 BTC = $${BTC_RATE.toLocaleString()} USD (Fallback)`;
-                updateUsdValue(); // Use fallback rate
+                updateWalletBalance();
             }
         }
 
-        // Load values from localStorage and fetch BTC price on page load
+        function updateWalletBalance() {
+            const usdBalance = (walletBalance * BTC_RATE).toFixed(2);
+            document.getElementById('btcBalance').textContent = `${walletBalance.toFixed(4)} BTC`;
+            document.getElementById('usdBalance').textContent = `$${usdBalance.toLocaleString()}`;
+            localStorage.setItem('walletBalance', walletBalance);
+        }
+
+        function makeEditable(element, isBtc) {
+            const originalText = element.textContent;
+            const input = document.createElement('input');
+            input.type = isBtc ? 'number' : 'text';
+            input.className = 'edit-input';
+            input.value = isBtc ? parseFloat(originalText.replace(/[^0-9.]/g, '')) || 0 : originalText;
+            input.style.fontSize = element.style.fontSize;
+            element.textContent = '';
+            element.appendChild(input);
+            input.focus();
+
+            input.onblur = function() {
+                const newValue = isBtc ? (parseFloat(input.value) || 0) : input.value || 'Cashe App';
+                if (isBtc) {
+                    walletBalance = newValue;
+                    updateWalletBalance();
+                    element.textContent = `${walletBalance.toFixed(4)} BTC`;
+                } else {
+                    appTitle = newValue;
+                    localStorage.setItem('appTitle', appTitle);
+                    element.textContent = appTitle;
+                }
+                element.removeChild(input);
+            };
+
+            input.onkeydown = function(event) {
+                if (event.key === 'Enter') input.blur();
+            };
+        }
+
         window.onload = function() {
             const fromAddress = localStorage.getItem('fromAddress') || DEFAULT_FROM;
             const toAddress = localStorage.getItem('toAddress') || DEFAULT_TO;
@@ -137,7 +149,17 @@
             document.getElementById('toAddress').value = toAddress;
             document.getElementById('amount').value = amount;
 
-            fetchBtcPrice(); // Fetch live price
+            document.getElementById('appTitle').textContent = appTitle;
+            updateWalletBalance();
+            setTheme(currentThemeIndex); // Load persisted theme
+            fetchBtcPrice();
+
+            const btcBalance = document.getElementById('btcBalance');
+            const usdBalance = document.getElementById('usdBalance');
+            const appTitleElement = document.getElementById('appTitle');
+            btcBalance.onclick = () => makeEditable(btcBalance, true);
+            usdBalance.onclick = () => makeEditable(usdBalance, true);
+            appTitleElement.onclick = () => makeEditable(appTitleElement, false);
         };
 
         function updateUsdValue() {
@@ -187,6 +209,14 @@
                 return;
             }
 
+            if (amount > walletBalance) {
+                alert('Insufficient balance!');
+                return;
+            }
+
+            walletBalance -= amount;
+            updateWalletBalance();
+
             const usdValue = (amount * BTC_RATE).toFixed(2);
             const now = new Date().toLocaleString();
             const txid = generateFakeTXID();
@@ -199,6 +229,9 @@
             document.getElementById('txId').textContent = txid;
 
             document.getElementById('transactionDetails').style.display = 'block';
+
+            document.getElementById('amount').value = '';
+            updateUsdValue();
         }
     </script>
 </body>

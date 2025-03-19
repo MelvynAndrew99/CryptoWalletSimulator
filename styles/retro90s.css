@@ -1,0 +1,132 @@
+body {
+    font-family: 'Courier New', monospace;
+    max-width: 700px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #000;
+    color: #00ffff;
+    background-image: linear-gradient(rgba(0,0,0,0.1) 1px, transparent 1px);
+    background-size: 100% 2px;
+}
+.header {
+    background: linear-gradient(135deg, #800080, #ff00ff); /* Neon gradient */
+    color: #00ffff;
+    padding: 20px;
+    border-radius: 5px 5px 0 0;
+    text-align: center;
+    box-shadow: 0 0 15px #ff00ff, 0 0 5px #00ffff; /* Glow effect */
+}
+.wallet-box, .transaction-box {
+    border: 2px dashed #00ffff;
+    padding: 20px;
+    margin: 10px 0;
+    background-color: #1a1a1a;
+    border-radius: 0;
+    box-shadow: 0 0 10px #00ffff;
+}
+.wallet-box h3, .transaction-box h3 {
+    margin: 0 0 15px 0;
+    color: #ff00ff;
+    font-size: 18px;
+    text-transform: uppercase;
+}
+input, button {
+    margin: 8px 0;
+    padding: 10px;
+    width: 100%;
+    box-sizing: border-box;
+    border: 2px solid #00ffff;
+    border-radius: 0;
+    background-color: #000;
+    color: #00ffff;
+    font-family: 'Courier New', monospace;
+}
+button {
+    background-color: #ff00ff;
+    color: #000;
+    border: none;
+    cursor: pointer;
+    font-weight: bold;
+}
+button:hover {
+    background-color: #cc00cc;
+}
+.transaction-box {
+    display: none;
+}
+.detail-label {
+    font-weight: bold;
+    color: #ff00ff;
+}
+.warning {
+    color: #ffff00;
+    font-size: 12px;
+}
+.usd-value {
+    color: #ff00ff;
+    font-weight: bold;
+    margin-left: 10px;
+}
+.wallet-balance {
+    background: linear-gradient(135deg, #1a1a1a, #333);
+    padding: 15px;
+    border: 2px solid #00ffff;
+    text-align: center;
+    margin-bottom: 15px;
+    cursor: pointer;
+    box-shadow: 0 0 5px #00ffff;
+}
+.btc-balance {
+    font-size: 32px;
+    color: #00ffff;
+    font-weight: bold;
+    margin: 0;
+    text-shadow: 1px 1px #ff00ff;
+}
+.usd-balance {
+    font-size: 18px;
+    color: #ffff00;
+    margin: 5px 0 0 0;
+    text-shadow: 1px 1px #800080;
+}
+.wallet-details {
+    font-size: 13px;
+    color: #00ffff;
+    line-height: 1.5;
+}
+.wallet-address {
+    word-break: break-all;
+    color: #00cccc;
+}
+.edit-input {
+    font-size: inherit;
+    color: #00ffff;
+    background-color: #000;
+    border: 2px dashed #ff00ff;
+    border-radius: 0;
+    padding: 5px;
+    width: auto;
+    display: inline-block;
+    text-align: center;
+    font-family: 'Courier New', monospace;
+}
+.app-title {
+    font-size: 28px;
+    font-weight: bold;
+    color: #00ffff;
+    text-shadow: 2px 2px #ff00ff, -2px -2px #800080; /* Multi-shadow */
+    cursor: pointer;
+    display: block;
+    text-align: center;
+    letter-spacing: 2px; /* Wider for retro flair */
+    margin: 0;
+}
+#btcRateDisplay {
+    display: block;
+    text-align: center;
+    font-size: 14px;
+    color: #ffff00;
+    text-shadow: 1px 1px #800080;
+    margin: 8px 0 0 0;
+    letter-spacing: 1px;
+}
