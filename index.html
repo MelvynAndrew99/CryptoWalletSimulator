@@ -63,12 +63,17 @@
             color: #ff4444;
             font-size: 12px;
         }
+        .usd-value {
+            color: #00d632; /* Matches your green theme */
+            font-weight: bold;
+            margin-left: 10px;
+        }
     </style>
 </head>
 <body>
     <div class="header">
         <h1>Cashe App</h1>
-        <p>BTC Trading • 1 BTC = $83,777.16 USD</p>
+        <p id="btcRateDisplay">BTC Trading • 1 BTC = $83,777.16 USD</p>
     </div>
 
     <!-- Receive Section -->
@@ -85,8 +90,8 @@
         <input type="text" id="fromAddress" placeholder="1J7mdg5rbQyUHENYdx39WVWK7fsLpEoXZy">
         <label>Too Address:</label>
         <input type="text" id="toAddress" placeholder="3KzP9vLqL8nX4rW9mM5pY2QwX7sTfBjdVc">
-        <label>Amount (BTC):</label>
-        <input type="number" id="amount" step="0.0001" placeholder="e.g., 0.0024 ($200)">
+        <label>Amount (BTC): <span id="usdValue" class="usd-value">$0.00</span></label>
+        <input type="number" id="amount" step="0.0001" placeholder="e.g., 0.0024" oninput="updateUsdValue()">
         <button onclick="sendCrypto()">Send BTC</button>
         <p class="warning">Note: Transaction may take 24hrs to process due to server delay.</p>
     </div>
@@ -102,7 +107,44 @@
     </div>
 
     <script>
-        const BTC_RATE = 83777.16; // 1 BTC = $83,777.16 USD
+        let BTC_RATE = 83777.16; // Fallback hardcoded rate
+        const DEFAULT_FROM = '1J7mdg5rbQyUHENYdx39WVWK7fsLpEoXZy';
+        const DEFAULT_TO = '3KzP9vLqL8nX4rW9mM5pY2QwX7sTfBjdVc';
+        const DEFAULT_AMOUNT = 0.0024;
+
+        // Fetch live BTC price from CryptoCompare
+        async function fetchBtcPrice() {
+            try {
+                const response = await fetch('https://min-api.cryptocompare.com/data/price?fsym=BTC&tsyms=USD');
+                const data = await response.json();
+                BTC_RATE = data.USD; // Extract USD value from {"USD":82889.48}
+                document.getElementById('btcRateDisplay').textContent = `BTC Trading • 1 BTC = $${BTC_RATE.toLocaleString()} USD`;
+                updateUsdValue(); // Update inline USD value after fetching rate
+            } catch (error) {
+                console.error('Failed to fetch BTC price:', error);
+                document.getElementById('btcRateDisplay').textContent = `BTC Trading • 1 BTC = $${BTC_RATE.toLocaleString()} USD (Fallback)`;
+                updateUsdValue(); // Use fallback rate
+            }
+        }
+
+        // Load values from localStorage and fetch BTC price on page load
+        window.onload = function() {
+            const fromAddress = localStorage.getItem('fromAddress') || DEFAULT_FROM;
+            const toAddress = localStorage.getItem('toAddress') || DEFAULT_TO;
+            const amount = localStorage.getItem('amount') || DEFAULT_AMOUNT;
+
+            document.getElementById('fromAddress').value = fromAddress;
+            document.getElementById('toAddress').value = toAddress;
+            document.getElementById('amount').value = amount;
+
+            fetchBtcPrice(); // Fetch live price
+        };
+
+        function updateUsdValue() {
+            const amount = parseFloat(document.getElementById('amount').value) || 0;
+            const usdValue = (amount * BTC_RATE).toFixed(2);
+            document.getElementById('usdValue').textContent = `$${usdValue}`;
+        }
 
         function generateFakeTXID() {
             const chars = '0123456789abcdef';
@@ -114,12 +156,34 @@
         }
 
         function sendCrypto() {
-            const fromAddress = document.getElementById('fromAddress').value || '1J7mdg5rbQyUHENYdx39WVWK7fsLpEoXZy';
-            const toAddress = document.getElementById('toAddress').value || '3KzP9vLqL8nX4rW9mM5pY2QwX7sTfBjdVc';
-            const amount = parseFloat(document.getElementById('amount').value) || 0.0024; // Default ~$200
+            let fromAddress = document.getElementById('fromAddress').value;
+            let toAddress = document.getElementById('toAddress').value;
+            let amount = document.getElementById('amount').value;
 
-            if (!fromAddress || !toAddress || amount <= 0) {
-                alert('Please fill in all fields with valid values!');
+            if (!fromAddress) {
+                localStorage.removeItem('fromAddress');
+                fromAddress = DEFAULT_FROM;
+            } else {
+                localStorage.setItem('fromAddress', fromAddress);
+            }
+
+            if (!toAddress) {
+                localStorage.removeItem('toAddress');
+                toAddress = DEFAULT_TO;
+            } else {
+                localStorage.setItem('toAddress', toAddress);
+            }
+
+            if (!amount) {
+                localStorage.removeItem('amount');
+                amount = DEFAULT_AMOUNT;
+            } else {
+                amount = parseFloat(amount);
+                localStorage.setItem('amount', amount);
+            }
+
+            if (amount <= 0) {
+                alert('Please enter a valid amount greater than 0!');
                 return;
             }
 
@@ -135,11 +199,6 @@
             document.getElementById('txId').textContent = txid;
 
             document.getElementById('transactionDetails').style.display = 'block';
-
-            // Clear inputs
-            document.getElementById('fromAddress').value = '';
-            document.getElementById('toAddress').value = '';
-            document.getElementById('amount').value = '';
         }
     </script>
 </body>
