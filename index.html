@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CashAppLite</title>
+    <style>
+        body {
+            font-family: 'Helvetica Neue', Arial, sans-serif;
+            max-width: 700px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #000;
+            color: #fff;
+        }
+        .header {
+            background-color: #00d632;
+            color: #000;
+            padding: 10px 20px;
+            border-radius: 5px 5px 0 0;
+            text-align: center;
+        }
+        .wallet-box, .transaction-box {
+            border: 1px solid #333;
+            padding: 20px;
+            margin: 10px 0;
+            background-color: #1a1a1a;
+            border-radius: 0 0 5px 5px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+        }
+        .wallet-box h3, .transaction-box h3 {
+            margin-top: 0;
+            color: #00d632;
+        }
+        input, button {
+            margin: 8px 0;
+            padding: 10px;
+            width: 100%;
+            box-sizing: border-box;
+            border: 1px solid #555;
+            border-radius: 4px;
+            background-color: #333;
+            color: #fff;
+        }
+        button {
+            background-color: #00d632;
+            color: #000;
+            border: none;
+            cursor: pointer;
+            font-weight: bold;
+        }
+        button:hover {
+            background-color: #00b82a;
+        }
+        .transaction-box {
+            display: none;
+        }
+        .detail-label {
+            font-weight: bold;
+            color: #ccc;
+        }
+        .warning {
+            color: #ff4444;
+            font-size: 12px;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>Cashe App</h1>
+        <p>BTC Trading • 1 BTC = $83,777.16 USD</p>
+    </div>
+
+    <!-- Receive Section -->
+    <div class="wallet-box">
+        <h3>BTC Wallet</h3>
+        <p><span class="detail-label">Address:</span> 1J7mdg5rbQyUHENYdx39WVWK7fsLpEoXZy</p>
+        <p>Share this address to receive BTC.</p>
+    </div>
+
+    <!-- Send Section -->
+    <div class="wallet-box">
+        <h3>Send BTC</h3>
+        <label>From Address:</label>
+        <input type="text" id="fromAddress" placeholder="1J7mdg5rbQyUHENYdx39WVWK7fsLpEoXZy">
+        <label>Too Address:</label>
+        <input type="text" id="toAddress" placeholder="3KzP9vLqL8nX4rW9mM5pY2QwX7sTfBjdVc">
+        <label>Amount (BTC):</label>
+        <input type="number" id="amount" step="0.0001" placeholder="e.g., 0.0024 ($200)">
+        <button onclick="sendCrypto()">Send BTC</button>
+        <p class="warning">Note: Transaction may take 24hrs to process due to server delay.</p>
+    </div>
+
+    <!-- Transaction Details -->
+    <div class="transaction-box" id="transactionDetails">
+        <h3>Transaction Receipt</h3>
+        <p><span class="detail-label">From:</span> <span id="txFrom"></span></p>
+        <p><span class="detail-label">To:</span> <span id="txTo"></span></p>
+        <p><span class="detail-label">Amount:</span> <span id="txAmount"></span> BTC (<span id="txUsd"></span> USD)</p>
+        <p><span class="detail-label">Date:</span> <span id="txDate"></span></p>
+        <p><span class="detail-label">TXID:</span> <span id="txId"></span></p>
+    </div>
+
+    <script>
+        const BTC_RATE = 83777.16; // 1 BTC = $83,777.16 USD
+
+        function generateFakeTXID() {
+            const chars = '0123456789abcdef';
+            let txid = '';
+            for (let i = 0; i < 64; i++) {
+                txid += chars[Math.floor(Math.random() * chars.length)];
+            }
+            return txid;
+        }
+
+        function sendCrypto() {
+            const fromAddress = document.getElementById('fromAddress').value || '1J7mdg5rbQyUHENYdx39WVWK7fsLpEoXZy';
+            const toAddress = document.getElementById('toAddress').value || '3KzP9vLqL8nX4rW9mM5pY2QwX7sTfBjdVc';
+            const amount = parseFloat(document.getElementById('amount').value) || 0.0024; // Default ~$200
+
+            if (!fromAddress || !toAddress || amount <= 0) {
+                alert('Please fill in all fields with valid values!');
+                return;
+            }
+
+            const usdValue = (amount * BTC_RATE).toFixed(2);
+            const now = new Date().toLocaleString();
+            const txid = generateFakeTXID();
+
+            document.getElementById('txFrom').textContent = fromAddress;
+            document.getElementById('txTo').textContent = toAddress;
+            document.getElementById('txAmount').textContent = amount.toFixed(4);
+            document.getElementById('txUsd').textContent = usdValue;
+            document.getElementById('txDate').textContent = now;
+            document.getElementById('txId').textContent = txid;
+
+            document.getElementById('transactionDetails').style.display = 'block';
+
+            // Clear inputs
+            document.getElementById('fromAddress').value = '';
+            document.getElementById('toAddress').value = '';
+            document.getElementById('amount').value = '';
+        }
+    </script>
+</body>
+</html>
