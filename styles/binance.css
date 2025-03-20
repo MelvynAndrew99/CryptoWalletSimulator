@@ -1,122 +1,312 @@
+/* BINANCE AUTHENTIC THEME */
+/* Based on Binance's modern crypto exchange design */
+
 body {
-    font-family: 'Helvetica Neue', Arial, sans-serif;
+    font-family: 'IBM Plex Sans', 'Helvetica Neue', Arial, sans-serif;
     max-width: 700px;
     margin: 0 auto;
     padding: 20px;
-    background-color: #1e2329;
-    color: #fff;
+    background-color: #0B0E11; /* Binance's darker background */
+    color: #EAE6F2;
 }
+
 .header {
-    background: linear-gradient(135deg, #f0b90b, #d4a009); /* Bold gradient */
-    color: #1e2329;
+    background: #F0B90B; /* Binance's signature yellow */
+    color: #0B0E11;
     padding: 20px;
-    border-radius: 10px 10px 0 0;
+    border-radius: 4px 4px 0 0;
     text-align: center;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    position: relative;
 }
+
+/* Binance-style logo pattern */
+.header:before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image:
+        radial-gradient(circle at 20% 30%, rgba(255, 255, 255, 0.1) 0%, rgba(255, 255, 255, 0) 10%),
+        radial-gradient(circle at 80% 70%, rgba(255, 255, 255, 0.1) 0%, rgba(255, 255, 255, 0) 10%);
+    opacity: 0.8;
+}
+
 .wallet-box, .transaction-box {
-    border: 2px solid #f0b90b;
+    border: 1px solid #2B3139;
     padding: 20px;
-    margin: 10px 0;
-    background-color: #252a31;
-    border-radius: 6px;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+    margin: 12px 0;
+    background-color: #181A20;
+    border-radius: 4px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.12);
 }
+
 .wallet-box h3, .transaction-box h3 {
-    margin: 0 0 15px 0;
-    color: #f0b90b;
-    font-size: 18px;
+    margin: 0 0 16px 0;
+    color: #F0B90B;
+    font-size: 16px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
 }
+
 input, button {
     margin: 8px 0;
-    padding: 10px;
+    padding: 12px;
     width: 100%;
     box-sizing: border-box;
-    border: 1px solid #3c444d;
+    border: 1px solid #2B3139;
     border-radius: 4px;
-    background-color: #2f363f;
-    color: #fff;
+    background-color: #2B3139;
+    color: #EAE6F2;
+    font-family: 'IBM Plex Sans', sans-serif;
+    font-size: 14px;
 }
+
+input:focus {
+    border-color: #F0B90B;
+    outline: none;
+}
+
+/* Binance-style labels */
+label {
+    display: block;
+    margin-top: 16px;
+    margin-bottom: 6px;
+    color: #848E9C;
+    font-size: 14px;
+    font-weight: 500;
+}
+
 button {
-    background-color: #f0b90b;
-    color: #1e2329;
+    background-color: #F0B90B;
+    color: #0B0E11;
     border: none;
     cursor: pointer;
-    font-weight: bold;
+    font-weight: 600;
+    margin-top: 16px;
+    transition: background-color 0.2s ease;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    height: 44px;
 }
+
 button:hover {
-    background-color: #d4a009;
+    background-color: #F8D32F;
 }
+
+button:active {
+    background-color: #D9A400;
+}
+
 .transaction-box {
     display: none;
 }
+
 .detail-label {
-    font-weight: bold;
-    color: #d1d4dc;
+    font-weight: 600;
+    color: #848E9C;
 }
+
 .warning {
-    color: #ff4d4d;
+    color: #F6465D;
     font-size: 12px;
+    margin-top: 12px;
+    padding: 8px 12px;
+    background-color: rgba(246, 70, 93, 0.1);
+    border-radius: 4px;
+    display: flex;
+    align-items: center;
 }
+
+.warning:before {
+    content: "⚠️";
+    margin-right: 8px;
+    font-size: 14px;
+}
+
 .usd-value {
-    color: #f0b90b;
-    font-weight: bold;
+    color: #F0B90B;
+    font-weight: 600;
     margin-left: 10px;
+    background-color: rgba(240, 185, 11, 0.1);
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-size: 14px;
 }
+
+/* Binance wallet balance style */
 .wallet-balance {
-    background: linear-gradient(135deg, #252a31, #2f363f);
-    padding: 15px;
-    border-radius: 6px;
+    background-color: #2B3139;
+    padding: 20px;
+    border-radius: 4px;
     text-align: center;
-    margin-bottom: 15px;
+    margin-bottom: 16px;
     cursor: pointer;
+    position: relative;
+    overflow: hidden;
 }
+
+.wallet-balance:before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 5px;
+    background: linear-gradient(90deg, #F0B90B 50%, transparent 50%);
+    background-size: 20px 100%;
+    opacity: 0.5;
+}
+
 .btc-balance {
     font-size: 32px;
-    color: #fff;
-    font-weight: bold;
+    color: #EAE6F2;
+    font-weight: 700;
     margin: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
+
+/* Binance Bitcoin symbol style */
+.btc-balance:before {
+    content: "";
+    display: inline-block;
+    width: 28px;
+    height: 28px;
+    background-color: #F3BA2F;
+    mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M23.638 14.904c-1.602 6.43-8.113 10.34-14.542 8.736C2.67 22.05-1.244 15.525.362 9.105 1.962 2.67 8.475-1.243 14.9.358c6.43 1.605 10.342 8.115 8.738 14.548v-.002zm-6.35-4.613c.24-1.59-.974-2.45-2.64-3.03l.54-2.153-1.315-.33-.525 2.107c-.345-.087-.705-.167-1.064-.25l.526-2.127-1.32-.33-.54 2.165c-.285-.067-.565-.132-.84-.2l-1.815-.45-.35 1.4s.975.225.955.236c.535.136.63.486.615.766l-1.477 5.92c-.075.166-.24.406-.614.314.015.02-.96-.24-.96-.24l-.66 1.51 1.71.426.93.242-.54 2.19 1.32.327.54-2.17c.36.1.705.19 1.05.273l-.51 2.154 1.32.33.545-2.19c2.24.427 3.93.257 4.64-1.774.57-1.637-.03-2.58-1.217-3.196.854-.193 1.5-.76 1.68-1.93h.01zm-3.01 4.22c-.404 1.64-3.157.75-4.05.53l.72-2.9c.896.23 3.757.67 3.33 2.37zm.41-4.24c-.37 1.49-2.662.735-3.405.55l.654-2.64c.744.18 3.137.52 2.75 2.084v.006z'/%3E%3C/svg%3E");
+    mask-size: contain;
+    mask-repeat: no-repeat;
+    -webkit-mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M23.638 14.904c-1.602 6.43-8.113 10.34-14.542 8.736C2.67 22.05-1.244 15.525.362 9.105 1.962 2.67 8.475-1.243 14.9.358c6.43 1.605 10.342 8.115 8.738 14.548v-.002zm-6.35-4.613c.24-1.59-.974-2.45-2.64-3.03l.54-2.153-1.315-.33-.525 2.107c-.345-.087-.705-.167-1.064-.25l.526-2.127-1.32-.33-.54 2.165c-.285-.067-.565-.132-.84-.2l-1.815-.45-.35 1.4s.975.225.955.236c.535.136.63.486.615.766l-1.477 5.92c-.075.166-.24.406-.614.314.015.02-.96-.24-.96-.24l-.66 1.51 1.71.426.93.242-.54 2.19 1.32.327.54-2.17c.36.1.705.19 1.05.273l-.51 2.154 1.32.33.545-2.19c2.24.427 3.93.257 4.64-1.774.57-1.637-.03-2.58-1.217-3.196.854-.193 1.5-.76 1.68-1.93h.01zm-3.01 4.22c-.404 1.64-3.157.75-4.05.53l.72-2.9c.896.23 3.757.67 3.33 2.37zm.41-4.24c-.37 1.49-2.662.735-3.405.55l.654-2.64c.744.18 3.137.52 2.75 2.084v.006z'/%3E%3C/svg%3E");
+    -webkit-mask-size: contain;
+    -webkit-mask-repeat: no-repeat;
+    margin-right: 10px;
+}
+
 .usd-balance {
-    font-size: 18px;
-    color: #b0b3b8;
-    margin: 5px 0 0 0;
+    font-size: 16px;
+    color: #848E9C;
+    margin: 8px 0 0 0;
+    font-weight: 500;
 }
+
 .wallet-details {
-    font-size: 13px;
-    color: #d1d4dc;
-    line-height: 1.5;
+    font-size: 14px;
+    color: #848E9C;
+    line-height: 1.6;
+    background-color: #2B3139;
+    padding: 16px;
+    border-radius: 4px;
+    position: relative;
 }
+
 .wallet-address {
     word-break: break-all;
-    color: #8a939e;
+    color: #EAE6F2;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 13px;
+    background-color: #181A20;
+    padding: 10px;
+    border-radius: 4px;
+    margin-top: 8px;
+    border: 1px solid #2B3139;
+    position: relative;
 }
+
+/* Copy icon */
+.wallet-address:after {
+    content: "";
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 16px;
+    height: 16px;
+    background-color: #848E9C;
+    mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M19,21H8V7H19M19,5H8A2,2 0 0,0 6,7V21A2,2 0 0,0 8,23H19A2,2 0 0,0 21,21V7A2,2 0 0,0 19,5M16,1H4A2,2 0 0,0 2,3V17H4V3H16V1Z' /%3E%3C/svg%3E");
+    mask-size: contain;
+    mask-repeat: no-repeat;
+    -webkit-mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M19,21H8V7H19M19,5H8A2,2 0 0,0 6,7V21A2,2 0 0,0 8,23H19A2,2 0 0,0 21,21V7A2,2 0 0,0 19,5M16,1H4A2,2 0 0,0 2,3V17H4V3H16V1Z' /%3E%3C/svg%3E");
+    -webkit-mask-size: contain;
+    -webkit-mask-repeat: no-repeat;
+    cursor: pointer;
+}
+
+.wallet-address:hover:after {
+    background-color: #F0B90B;
+}
+
 .edit-input {
     font-size: inherit;
-    color: #fff;
-    background-color: #2f363f;
-    border: 2px solid #f0b90b;
+    color: #EAE6F2;
+    background-color: #2B3139;
+    border: 1px solid #F0B90B;
     border-radius: 4px;
-    padding: 5px;
+    padding: 8px;
     width: auto;
     display: inline-block;
     text-align: center;
 }
+
 .app-title {
-    font-size: 28px;
+    font-size: 24px;
     font-weight: 700;
-    color: #1e2329;
+    color: #0B0E11;
     cursor: pointer;
     display: block;
     text-align: center;
-    letter-spacing: 1px;
+    letter-spacing: 0.5px;
     margin: 0;
+    position: relative;
+    z-index: 1;
 }
+
 #btcRateDisplay {
     display: block;
     text-align: center;
     font-size: 14px;
-    color: #252a31; /* Darker for contrast */
+    color: rgba(11, 14, 17, 0.8);
     margin: 8px 0 0 0;
-    letter-spacing: 0.5px;
+    font-weight: 600;
+    position: relative;
+    z-index: 1;
+}
+
+/* Binance trading chart mini-icon */
+.wallet-balance:after {
+    content: "";
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    width: 20px;
+    height: 20px;
+    background-image: linear-gradient(45deg, transparent 48%, #F0B90B 48%, #F0B90B 52%, transparent 52%),
+                      linear-gradient(-45deg, transparent 48%, #F0B90B 48%, #F0B90B 52%, transparent 52%);
+    opacity: 0.5;
+}
+
+/* Binance logo-inspired button content */
+button:after {
+    content: "";
+    position: absolute;
+    top: 50%;
+    right: 12px;
+    transform: translateY(-50%);
+    width: 16px;
+    height: 16px;
+    background-color: #0B0E11;
+    mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M16.01 11H4v2h12.01v3L20 12l-3.99-4v3z'/%3E%3C/svg%3E");
+    mask-size: contain;
+    mask-repeat: no-repeat;
+    -webkit-mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M16.01 11H4v2h12.01v3L20 12l-3.99-4v3z'/%3E%3C/svg%3E");
+    -webkit-mask-size: contain;
+    -webkit-mask-repeat: no-repeat;
+}
+
+button {
+    position: relative;
 }

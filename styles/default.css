@@ -1,122 +1,577 @@
+/* QUANTUM WALLET - FIXED EDITABLE FIELDS */
+/* A sophisticated wallet experience with easily editable fields */
+
+@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=DM+Mono:wght@300;400;500&display=swap');
+
+:root {
+  /* Core color palette - adaptable with dark/light modes */
+  --bg-primary: #0f172a;
+  --bg-secondary: #1e293b;
+  --bg-tertiary: #334155;
+  --accent-primary: #10b981;
+  --accent-secondary: #06b6d4;
+  --accent-tertiary: #8b5cf6;
+  --text-primary: #f8fafc;
+  --text-secondary: #cbd5e1;
+  --text-tertiary: #64748b;
+  --danger: #ef4444;
+  --warning: #f59e0b;
+  --success: #10b981;
+
+  /* UI Dimensions */
+  --border-radius-sm: 6px;
+  --border-radius-md: 12px;
+  --border-radius-lg: 24px;
+  --spacing-xs: 4px;
+  --spacing-sm: 8px;
+  --spacing-md: 16px;
+  --spacing-lg: 24px;
+  --spacing-xl: 32px;
+
+  /* Animation speeds */
+  --transition-fast: 0.15s;
+  --transition-medium: 0.3s;
+  --transition-slow: 0.5s;
+
+  /* Glass effect variables */
+  --glass-bg: rgba(15, 23, 42, 0.6);
+  --glass-border: rgba(255, 255, 255, 0.1);
+  --glass-shadow: rgba(0, 0, 0, 0.25);
+  --glass-blur: 10px;
+}
+
+/* Base Styles with Sophisticated Backdrop */
 body {
-    font-family: 'Helvetica Neue', Arial, sans-serif;
-    max-width: 700px;
-    margin: 0 auto;
-    padding: 20px;
-    background-color: #000;
-    color: #fff;
+  font-family: 'Space Grotesk', sans-serif;
+  max-width: 700px;
+  margin: 0 auto;
+  padding: var(--spacing-xl);
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
+  line-height: 1.5;
+  position: relative;
+  overflow-x: hidden;
 }
+
+/* Dynamic background with animated gradient mesh */
+body::before {
+  content: "";
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background:
+    radial-gradient(circle at 20% 20%, rgba(16, 185, 129, 0.1), transparent 40%),
+    radial-gradient(circle at 80% 80%, rgba(139, 92, 246, 0.1), transparent 40%),
+    radial-gradient(circle at 50% 50%, rgba(6, 182, 212, 0.05), transparent 60%);
+  z-index: -1;
+  animation: gradientShift 20s ease infinite alternate;
+}
+
+@keyframes gradientShift {
+  0% {
+    background-position: 0% 0%;
+  }
+  100% {
+    background-position: 100% 100%;
+  }
+}
+
+/* Main Header with Glass Morphism */
 .header {
-    background: linear-gradient(135deg, #00d632, #00a626); /* Modern gradient */
-    color: #000;
-    padding: 20px; /* More breathing room */
-    border-radius: 10px 10px 0 0; /* Softer corners */
-    text-align: center;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2); /* Subtle shadow */
+  background: var(--glass-bg);
+  backdrop-filter: blur(var(--glass-blur));
+  -webkit-backdrop-filter: blur(var(--glass-blur));
+  color: var(--text-primary);
+  padding: var(--spacing-lg);
+  border-radius: var(--border-radius-lg);
+  text-align: center;
+  box-shadow:
+    0 8px 32px 0 var(--glass-shadow),
+    0 1px 0 0 var(--glass-border);
+  border: 1px solid var(--glass-border);
+  position: relative;
+  overflow: hidden;
+  transition: all var(--transition-medium) ease;
 }
-.wallet-box, .transaction-box {
-    border: 1px solid #333;
-    padding: 20px;
-    margin: 10px 0;
-    background-color: #1a1a1a;
-    border-radius: 0 0 5px 5px;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+
+/* Shimmering header effect */
+.header::after {
+  content: "";
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: linear-gradient(
+    to bottom right,
+    rgba(255, 255, 255, 0) 0%,
+    rgba(255, 255, 255, 0.05) 50%,
+    rgba(255, 255, 255, 0) 100%
+  );
+  transform: rotate(45deg);
+  animation: shimmer 6s linear infinite;
+  z-index: 1;
 }
-.wallet-box h3, .transaction-box h3 {
-    margin: 0 0 15px 0;
-    color: #00d632;
-    font-size: 18px;
+
+@keyframes shimmer {
+  0% {
+    transform: rotate(45deg) translateX(-100%);
+  }
+  100% {
+    transform: rotate(45deg) translateX(100%);
+  }
 }
-input, button {
-    margin: 8px 0;
-    padding: 10px;
-    width: 100%;
-    box-sizing: border-box;
-    border: 1px solid #555;
-    border-radius: 4px;
-    background-color: #333;
-    color: #fff;
-}
-button {
-    background-color: #00d632;
-    color: #000;
-    border: none;
-    cursor: pointer;
-    font-weight: bold;
-}
-button:hover {
-    background-color: #00b82a;
-}
-.transaction-box {
-    display: none;
-}
-.detail-label {
-    font-weight: bold;
-    color: #ccc;
-}
-.warning {
-    color: #ff4444;
-    font-size: 12px;
-}
-.usd-value {
-    color: #00d632;
-    font-weight: bold;
-    margin-left: 10px;
-}
-.wallet-balance {
-    background: linear-gradient(135deg, #1a1a1a, #222);
-    padding: 15px;
-    border-radius: 8px;
-    text-align: center;
-    margin-bottom: 15px;
-    cursor: pointer;
-}
-.btc-balance {
-    font-size: 32px;
-    color: #fff;
-    font-weight: bold;
-    margin: 0;
-}
-.usd-balance {
-    font-size: 18px;
-    color: #999;
-    margin: 5px 0 0 0;
-}
-.wallet-details {
-    font-size: 13px;
-    color: #ccc;
-    line-height: 1.5;
-}
-.wallet-address {
-    word-break: break-all;
-    color: #888;
-}
-.edit-input {
-    font-size: inherit;
-    color: #fff;
-    background-color: #333;
-    border: 2px solid #00d632;
-    border-radius: 4px;
-    padding: 5px;
-    width: auto;
-    display: inline-block;
-    text-align: center;
-}
+
+/* FIXED: App title now uses a more appealing color */
 .app-title {
-    font-size: 28px; /* Slightly larger */
-    font-weight: 700; /* Bolder */
-    color: #000;
-    cursor: pointer;
-    display: block;
-    text-align: center;
-    letter-spacing: 1px; /* Modern spacing */
-    margin: 0;
+  font-size: 32px;
+  font-weight: 700;
+  color: #f8fafc; /* Changed to a clean white color instead of green */
+  cursor: pointer;
+  display: block;
+  text-align: center;
+  margin: 0;
+  position: relative;
+  z-index: 5;
+  letter-spacing: -0.5px;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
 }
+
 #btcRateDisplay {
-    display: block;
-    text-align: center;
-    font-size: 14px;
-    color: #333; /* Darker for contrast */
-    margin: 8px 0 0 0;
-    letter-spacing: 0.5px;
+  display: block;
+  text-align: center;
+  font-size: 14px;
+  color: var(--text-secondary);
+  margin: var(--spacing-md) 0 0 0;
+  font-weight: 500;
+  position: relative;
+  z-index: 5;
+  opacity: 0.9;
+}
+
+/* Neumorphic Wallet Boxes */
+.wallet-box, .transaction-box {
+  background: var(--bg-secondary);
+  padding: var(--spacing-xl);
+  margin: var(--spacing-xl) 0;
+  border-radius: var(--border-radius-lg);
+  position: relative;
+  box-shadow:
+    8px 8px 16px rgba(0, 0, 0, 0.3),
+    -8px -8px 16px rgba(255, 255, 255, 0.03);
+  overflow: hidden;
+  transition: transform var(--transition-medium) ease, box-shadow var(--transition-medium) ease;
+}
+
+.wallet-box:hover, .transaction-box:hover {
+  transform: translateY(-4px);
+  box-shadow:
+    12px 12px 20px rgba(0, 0, 0, 0.4),
+    -8px -8px 16px rgba(255, 255, 255, 0.03);
+}
+
+/* Modern heading with animated underline */
+.wallet-box h3, .transaction-box h3 {
+  margin: 0 0 var(--spacing-lg) 0;
+  color: var(--text-primary);
+  font-size: 20px;
+  font-weight: 600;
+  position: relative;
+  display: inline-block;
+  padding-bottom: var(--spacing-xs);
+}
+
+.wallet-box h3::after, .transaction-box h3::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 50%;
+  height: 2px;
+  background: linear-gradient(
+    90deg,
+    var(--accent-primary),
+    var(--accent-secondary)
+  );
+  transition: width var(--transition-medium) ease;
+}
+
+.wallet-box:hover h3::after, .transaction-box:hover h3::after {
+  width: 100%;
+}
+
+/* Wallet Balance with Glass Effect */
+.wallet-balance {
+  background: var(--glass-bg);
+  backdrop-filter: blur(var(--glass-blur));
+  -webkit-backdrop-filter: blur(var(--glass-blur));
+  padding: var(--spacing-xl);
+  border-radius: var(--border-radius-md);
+  text-align: center;
+  margin-bottom: var(--spacing-lg);
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+  border: 1px solid var(--glass-border);
+  transition: all var(--transition-medium) ease;
+}
+
+.wallet-balance:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+}
+
+/* FIXED: BTC Balance now uses solid color for better editing */
+.btc-balance {
+  font-size: 42px;
+  color: var(--text-primary);
+  font-weight: 700;
+  margin: 0;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Crypto icon with pulse animation - positioned absolutely to not interfere with text editing */
+.wallet-balance::before {
+  content: "";
+  position: absolute;
+  left: var(--spacing-xl);
+  top: 50%;
+  transform: translateY(-50%);
+  width: 32px;
+  height: 32px;
+  background: linear-gradient(
+    135deg,
+    var(--accent-primary),
+    var(--accent-secondary)
+  );
+  mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M12 22C6.477 22 2 17.523 2 12S6.477 2 12 2s10 4.477 10 10-4.477 10-10 10zm-1-9.5v3h2v-3h2v-2h-2v-1h2v-2h-2v-1h-2v1h-1v-1H9v1H8v2h1v1H8v2h1v1h2zm1 1.5h-1v-3h1v3z'/%3E%3C/svg%3E");
+  mask-size: contain;
+  mask-repeat: no-repeat;
+  -webkit-mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M12 22C6.477 22 2 17.523 2 12S6.477 2 12 2s10 4.477 10 10-4.477 10-10 10zm-1-9.5v3h2v-3h2v-2h-2v-1h2v-2h-2v-1h-2v1h-1v-1H9v1H8v2h1v1H8v2h1v1h2zm1 1.5h-1v-3h1v3z'/%3E%3C/svg%3E");
+  -webkit-mask-size: contain;
+  -webkit-mask-repeat: no-repeat;
+  border-radius: 50%;
+  animation: pulse 2s infinite;
+  z-index: 1;
+}
+
+@keyframes pulse {
+  0% {
+    box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.5);
+  }
+  70% {
+    box-shadow: 0 0 0 10px rgba(16, 185, 129, 0);
+  }
+  100% {
+    box-shadow: 0 0 0 0 rgba(16, 185, 129, 0);
+  }
+}
+
+.usd-balance {
+  font-size: 18px;
+  color: var(--text-secondary);
+  margin: var(--spacing-sm) 0 0 0;
+  font-weight: 500;
+  opacity: 0.9;
+}
+
+/* Mini chart in background of balance */
+.wallet-balance::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 30%;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 25' preserveAspectRatio='none'%3E%3Cpath d='M0 25h100V20c-6.667 0-6.667-10-13.333-10s-6.667 10-13.334 10c-6.666 0-6.666-15-13.333-15-6.666 0-6.666 5-13.333 5-6.667 0-6.667-10-13.334-10S26.667 15 20 15c-6.667 0-6.667-5-13.333-5C0 10 0 20 0 20v5z' fill='rgba(16, 185, 129, 0.1)'/%3E%3C/svg%3E");
+  background-size: 100% 100%;
+  background-repeat: no-repeat;
+  opacity: 0.5;
+  pointer-events: none;
+  z-index: 1;
+}
+
+/* Wallet Details with Advanced Styling */
+.wallet-details {
+  font-size: 14px;
+  color: var(--text-secondary);
+  line-height: 1.6;
+  background: var(--bg-tertiary);
+  padding: var(--spacing-lg);
+  border-radius: var(--border-radius-md);
+  margin-top: var(--spacing-md);
+  position: relative;
+  box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.detail-label {
+  font-weight: 600;
+  color: var(--accent-primary);
+  display: inline-block;
+  margin-right: var(--spacing-xs);
+}
+
+.wallet-address {
+  font-family: 'DM Mono', monospace;
+  word-break: break-all;
+  color: var(--text-primary);
+  background-color: var(--bg-primary);
+  padding: var(--spacing-md);
+  border-radius: var(--border-radius-sm);
+  margin-top: var(--spacing-xs);
+  border: 1px solid var(--bg-tertiary);
+  position: relative;
+  font-size: 13px;
+  letter-spacing: 0.5px;
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+}
+
+/* Copy button animation */
+.wallet-address::after {
+  content: "";
+  position: absolute;
+  right: var(--spacing-md);
+  width: 20px;
+  height: 20px;
+  background-color: var(--text-secondary);
+  mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M19,21H8V7H19M19,5H8A2,2 0 0,0 6,7V21A2,2 0 0,0 8,23H19A2,2 0 0,0 21,21V7A2,2 0 0,0 19,5M16,1H4A2,2 0 0,0 2,3V17H4V3H16V1Z' /%3E%3C/svg%3E");
+  mask-size: contain;
+  mask-repeat: no-repeat;
+  -webkit-mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M19,21H8V7H19M19,5H8A2,2 0 0,0 6,7V21A2,2 0 0,0 8,23H19A2,2 0 0,0 21,21V7A2,2 0 0,0 19,5M16,1H4A2,2 0 0,0 2,3V17H4V3H16V1Z' /%3E%3C/svg%3E");
+  -webkit-mask-size: contain;
+  -webkit-mask-repeat: no-repeat;
+  cursor: pointer;
+  transition: background-color var(--transition-fast) ease;
+}
+
+.wallet-address:hover::after {
+  background-color: var(--accent-primary);
+  animation: copyPulse 1s infinite;
+}
+
+@keyframes copyPulse {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.2);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+/* Modern Form Elements */
+input, button {
+  margin: var(--spacing-md) 0;
+  padding: var(--spacing-lg);
+  width: 100%;
+  box-sizing: border-box;
+  border: 1px solid var(--bg-tertiary);
+  border-radius: var(--border-radius-md);
+  background-color: var(--bg-tertiary);
+  color: var(--text-primary);
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 16px;
+  transition: all var(--transition-fast) ease;
+}
+
+input:focus {
+  outline: none;
+  border-color: var(--accent-primary);
+  box-shadow: 0 0 0 2px rgba(16, 185, 129, 0.2);
+}
+
+/* Floating label effect */
+label {
+  display: block;
+  margin-top: var(--spacing-lg);
+  margin-bottom: var(--spacing-xs);
+  color: var(--text-secondary);
+  font-size: 14px;
+  font-weight: 500;
+  transition: all var(--transition-fast) ease;
+  position: relative;
+}
+
+/* Advanced button with gradient and animation */
+button {
+  background: linear-gradient(
+    135deg,
+    var(--accent-primary),
+    var(--accent-secondary)
+  );
+  color: #ffffff;
+  border: none;
+  cursor: pointer;
+  font-weight: 600;
+  margin-top: var(--spacing-lg);
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0 4px 12px rgba(16, 185, 129, 0.3);
+  transition: all var(--transition-fast) ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(16, 185, 129, 0.4);
+  background: linear-gradient(
+    135deg,
+    var(--accent-primary),
+    var(--accent-tertiary)
+  );
+}
+
+button:active {
+  transform: translateY(1px);
+  box-shadow: 0 2px 8px rgba(16, 185, 129, 0.4);
+}
+
+/* Button ripple effect */
+button::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 5px;
+  height: 5px;
+  background: rgba(255, 255, 255, 0.5);
+  opacity: 0;
+  border-radius: 100%;
+  transform: scale(1, 1) translate(-50%, -50%);
+  transform-origin: 50% 50%;
+}
+
+@keyframes ripple {
+  0% {
+    transform: scale(0, 0);
+    opacity: 0.5;
+  }
+  100% {
+    transform: scale(20, 20);
+    opacity: 0;
+  }
+}
+
+button:focus:not(:active)::after {
+  animation: ripple 1s ease-out;
+}
+
+/* USD value pill with gradient - FIXED to remove extra $ sign */
+.usd-value {
+  color: var(--text-primary);
+  font-weight: 600;
+  margin-left: var(--spacing-sm);
+  padding: var(--spacing-xs) var(--spacing-md);
+  border-radius: 20px;
+  font-size: 14px;
+  display: inline-flex;
+  align-items: center;
+  background: linear-gradient(
+    90deg,
+    var(--accent-primary),
+    var(--accent-secondary)
+  );
+  box-shadow: 0 2px 6px rgba(16, 185, 129, 0.3);
+}
+
+/* Removed the ::before pseudo-element that was adding an extra $ sign */
+
+/* Warning with modern design */
+.warning {
+  color: var(--warning);
+  font-size: 14px;
+  margin-top: var(--spacing-md);
+  padding: var(--spacing-md);
+  background-color: rgba(245, 158, 11, 0.1);
+  border-left: 3px solid var(--warning);
+  border-radius: var(--border-radius-sm);
+  display: flex;
+  align-items: center;
+}
+
+.warning::before {
+  content: "⚠️";
+  margin-right: var(--spacing-sm);
+  font-size: 16px;
+}
+
+/* Transaction details box */
+.transaction-box {
+  display: none;
+  border-left: 3px solid var(--success);
+}
+
+/* FIXED: Edit input styling with better visibility */
+.edit-input {
+  font-size: inherit;
+  color: var(--text-primary);
+  background-color: var(--bg-tertiary);
+  border: 2px solid var(--accent-primary);
+  border-radius: var(--border-radius-sm);
+  padding: var(--spacing-sm);
+  width: auto;
+  display: inline-block;
+  text-align: center;
+  box-shadow: 0 0 0 2px rgba(16, 185, 129, 0.2);
+  font-family: 'Space Grotesk', sans-serif;
+  font-weight: inherit;
+  min-width: 120px;
+}
+
+/* FIXED: Special styling for app title editing */
+#appTitle .edit-input {
+  font-size: 32px;
+  font-weight: 700;
+  min-width: 200px;
+  color: var(--text-primary);
+}
+
+/* FIXED: Special styling for BTC balance editing */
+.btc-balance .edit-input {
+  font-size: 42px;
+  font-weight: 700;
+  min-width: 200px;
+  color: var(--text-primary);
+}
+
+/* FIXED: Special styling for USD balance editing */
+.usd-balance .edit-input {
+  font-size: 18px;
+  font-weight: 500;
+  min-width: 150px;
+  color: var(--text-primary);
+}
+
+/* Dark mode toggle in bottom corner */
+body::after {
+  content: "☀️";
+  position: fixed;
+  bottom: var(--spacing-md);
+  right: var(--spacing-md);
+  width: 40px;
+  height: 40px;
+  background: var(--glass-bg);
+  backdrop-filter: blur(var(--glass-blur));
+  -webkit-backdrop-filter: blur(var(--glass-blur));
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  cursor: pointer;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+  border: 1px solid var(--glass-border);
+  font-size: 20px;
+  z-index: 100;
+  transition: all var(--transition-medium) ease;
 }

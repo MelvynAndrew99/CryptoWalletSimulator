@@ -1,122 +1,258 @@
+/* COINBASE AUTHENTIC THEME */
+/* Based on Coinbase's modern crypto platform design */
+
 body {
-    font-family: 'Helvetica Neue', Arial, sans-serif;
+    font-family: 'Inter', 'Helvetica Neue', Arial, sans-serif;
     max-width: 700px;
     margin: 0 auto;
     padding: 20px;
-    background-color: #0a2540;
-    color: #fff;
+    background-color: #0A0B0D; /* Coinbase uses a very dark background */
+    color: #FFFFFF;
 }
+
 .header {
-    background: linear-gradient(135deg, #1652f0, #0a2a66); /* Sleek gradient */
-    color: #fff;
-    padding: 20px;
-    border-radius: 10px 10px 0 0;
+    background: linear-gradient(135deg, #0052FF, #0A46E4); /* Coinbase's signature blue */
+    color: #FFFFFF;
+    padding: 24px 20px;
+    border-radius: 12px 12px 0 0;
     text-align: center;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+    box-shadow: 0 4px 12px rgba(0, 82, 255, 0.25);
 }
+
 .wallet-box, .transaction-box {
-    border: 1px solid #1e3a5f;
-    padding: 20px;
-    margin: 10px 0;
-    background-color: #132f4c;
-    border-radius: 8px;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.3);
+    border: 1px solid #262A37;
+    padding: 24px;
+    margin: 16px 0;
+    background-color: #131416; /* Slightly lighter than the background */
+    border-radius: 12px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
 }
+
 .wallet-box h3, .transaction-box h3 {
-    margin: 0 0 15px 0;
-    color: #1652f0;
+    margin: 0 0 20px 0;
+    color: #0052FF; /* Coinbase blue */
     font-size: 18px;
+    font-weight: 600;
+    letter-spacing: 0.3px;
 }
+
 input, button {
-    margin: 8px 0;
-    padding: 10px;
+    margin: 12px 0;
+    padding: 14px;
     width: 100%;
     box-sizing: border-box;
-    border: 1px solid #2b5280;
-    border-radius: 4px;
-    background-color: #1e3a5f;
-    color: #fff;
+    border: 1px solid #2C3143;
+    border-radius: 8px;
+    background-color: #1C1F2B;
+    color: #FFFFFF;
+    font-family: 'Inter', sans-serif;
+    font-size: 15px;
 }
+
+input:focus {
+    border-color: #0052FF;
+    outline: none;
+}
+
+/* Coinbase-style labels */
+label {
+    display: block;
+    margin-top: 16px;
+    margin-bottom: 6px;
+    color: #A9ABAD;
+    font-size: 14px;
+    font-weight: 500;
+}
+
 button {
-    background-color: #1652f0;
-    color: #fff;
+    background-color: #0052FF;
+    color: #FFFFFF;
     border: none;
     cursor: pointer;
-    font-weight: bold;
+    font-weight: 600;
+    margin-top: 16px;
+    transition: background-color 0.2s ease;
+    letter-spacing: 0.3px;
 }
+
 button:hover {
-    background-color: #123db5;
+    background-color: #0045D6;
 }
+
+button:active {
+    background-color: #003BB9;
+}
+
 .transaction-box {
     display: none;
 }
+
 .detail-label {
-    font-weight: bold;
-    color: #a3bffa;
+    font-weight: 600;
+    color: #A9ABAD;
 }
+
 .warning {
-    color: #ff6b6b;
-    font-size: 12px;
-}
-.usd-value {
-    color: #1652f0;
-    font-weight: bold;
-    margin-left: 10px;
-}
-.wallet-balance {
-    background: linear-gradient(135deg, #132f4c, #1e3a5f);
-    padding: 15px;
-    border-radius: 8px;
-    text-align: center;
-    margin-bottom: 15px;
-    cursor: pointer;
-}
-.btc-balance {
-    font-size: 32px;
-    color: #fff;
-    font-weight: bold;
-    margin: 0;
-}
-.usd-balance {
-    font-size: 18px;
-    color: #a3bffa;
-    margin: 5px 0 0 0;
-}
-.wallet-details {
+    color: #EB5757;
     font-size: 13px;
-    color: #a3bffa;
+    margin-top: 12px;
     line-height: 1.5;
 }
+
+.usd-value {
+    color: #0052FF;
+    font-weight: 600;
+    margin-left: 10px;
+    padding: 4px 8px;
+    border-radius: 4px;
+    background-color: rgba(0, 82, 255, 0.08);
+}
+
+/* Coinbase asset display style */
+.wallet-balance {
+    background: linear-gradient(to right, #131416, #1A1D27);
+    padding: 24px;
+    border-radius: 12px;
+    text-align: center;
+    margin-bottom: 20px;
+    cursor: pointer;
+    border: 1px solid #262A37;
+    position: relative;
+}
+
+.wallet-balance:after {
+    content: "";
+    position: absolute;
+    width: 40px;
+    height: 40px;
+    background-color: #0052FF;
+    mask-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 24 24' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M12,2A10,10 0 0,1 22,12A10,10 0 0,1 12,22A10,10 0 0,1 2,12A10,10 0 0,1 12,2M12,4A8,8 0 0,0 4,12A8,8 0 0,0 12,20A8,8 0 0,0 20,12A8,8 0 0,0 12,4'/%3E%3C/svg%3E");
+    mask-size: contain;
+    mask-repeat: no-repeat;
+    -webkit-mask-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 24 24' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M12,2A10,10 0 0,1 22,12A10,10 0 0,1 12,22A10,10 0 0,1 2,12A10,10 0 0,1 12,2M12,4A8,8 0 0,0 4,12A8,8 0 0,0 12,20A8,8 0 0,0 20,12A8,8 0 0,0 12,4'/%3E%3C/svg%3E");
+    -webkit-mask-size: contain;
+    -webkit-mask-repeat: no-repeat;
+    right: 20px;
+    top: 20px;
+    opacity: 0.2;
+}
+
+.btc-balance {
+    font-size: 36px;
+    color: #FFFFFF;
+    font-weight: 700;
+    margin: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Coinbase BTC symbol style */
+.btc-balance:before {
+    content: "";
+    display: inline-block;
+    width: 32px;
+    height: 32px;
+    background-color: #F7931A; /* Bitcoin orange */
+    mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M12,2A10,10 0 0,1 22,12A10,10 0 0,1 12,22A10,10 0 0,1 2,12A10,10 0 0,1 12,2M15.24,10.3C15.6,8.73 14.47,7.94 12.92,7.4L13.3,5.93L12.25,5.65L11.89,7.07C11.59,7 11.29,6.93 11,6.87L11.36,5.44L10.31,5.16L9.92,6.63C9.68,6.57 9.45,6.5 9.23,6.44V6.43L7.81,6.07L7.5,7.21C7.5,7.21 8.28,7.4 8.27,7.41C8.83,7.56 8.94,7.92 8.92,8.22L8.5,9.96C8.53,9.97 8.58,9.98 8.63,10L8.5,10C8.5,10 8.5,10 8.5,10L8.5,10L7.94,12.44C7.87,12.61 7.69,12.86 7.3,12.76C7.31,12.77 6.54,12.57 6.54,12.57L6,13.84L7.33,14.18C7.61,14.25 7.88,14.33 8.14,14.39L7.76,15.89L8.81,16.17L9.19,14.7C9.5,14.78 9.8,14.85 10.1,14.92L9.72,16.38L10.77,16.66L11.15,15.17C13.29,15.54 14.87,15.36 15.5,13.43C16,11.88 15.43,10.96 14.33,10.37C15.13,10.17 15.73,9.64 15.89,8.67L15.9,8.67C15.9,8.67 15.9,8.67 15.9,8.67M13.97,12.45C13.6,14 11.18,13.19 10.4,13L10.92,10.87C11.7,11.06 14.36,10.83 13.97,12.45M14.45,8.63C14.12,10.03 12.09,9.33 11.43,9.18L11.91,7.25C12.57,7.4 14.81,7.16 14.45,8.63Z' /%3E%3C/svg%3E");
+    mask-size: contain;
+    mask-repeat: no-repeat;
+    -webkit-mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M12,2A10,10 0 0,1 22,12A10,10 0 0,1 12,22A10,10 0 0,1 2,12A10,10 0 0,1 12,2M15.24,10.3C15.6,8.73 14.47,7.94 12.92,7.4L13.3,5.93L12.25,5.65L11.89,7.07C11.59,7 11.29,6.93 11,6.87L11.36,5.44L10.31,5.16L9.92,6.63C9.68,6.57 9.45,6.5 9.23,6.44V6.43L7.81,6.07L7.5,7.21C7.5,7.21 8.28,7.4 8.27,7.41C8.83,7.56 8.94,7.92 8.92,8.22L8.5,9.96C8.53,9.97 8.58,9.98 8.63,10L8.5,10C8.5,10 8.5,10 8.5,10L8.5,10L7.94,12.44C7.87,12.61 7.69,12.86 7.3,12.76C7.31,12.77 6.54,12.57 6.54,12.57L6,13.84L7.33,14.18C7.61,14.25 7.88,14.33 8.14,14.39L7.76,15.89L8.81,16.17L9.19,14.7C9.5,14.78 9.8,14.85 10.1,14.92L9.72,16.38L10.77,16.66L11.15,15.17C13.29,15.54 14.87,15.36 15.5,13.43C16,11.88 15.43,10.96 14.33,10.37C15.13,10.17 15.73,9.64 15.89,8.67L15.9,8.67C15.9,8.67 15.9,8.67 15.9,8.67M13.97,12.45C13.6,14 11.18,13.19 10.4,13L10.92,10.87C11.7,11.06 14.36,10.83 13.97,12.45M14.45,8.63C14.12,10.03 12.09,9.33 11.43,9.18L11.91,7.25C12.57,7.4 14.81,7.16 14.45,8.63Z' /%3E%3C/svg%3E");
+    -webkit-mask-size: contain;
+    -webkit-mask-repeat: no-repeat;
+    margin-right: 10px;
+}
+
+.usd-balance {
+    font-size: 18px;
+    color: #A9ABAD;
+    margin: 8px 0 0 0;
+    font-weight: 500;
+}
+
+.wallet-details {
+    font-size: 14px;
+    color: #A9ABAD;
+    line-height: 1.6;
+    background-color: #1A1D27;
+    padding: 16px;
+    border-radius: 8px;
+    margin-top: 12px;
+    position: relative;
+}
+
 .wallet-address {
     word-break: break-all;
-    color: #7895cb;
+    color: #FFFFFF;
+    font-family: 'Roboto Mono', monospace;
+    font-size: 13px;
+    background-color: #262A37;
+    padding: 10px;
+    border-radius: 6px;
+    margin-top: 8px;
+    border: 1px solid #353945;
 }
+
 .edit-input {
     font-size: inherit;
-    color: #fff;
-    background-color: #1e3a5f;
-    border: 2px solid #1652f0;
-    border-radius: 4px;
-    padding: 5px;
+    color: #FFFFFF;
+    background-color: #1C1F2B;
+    border: 2px solid #0052FF;
+    border-radius: 6px;
+    padding: 8px;
     width: auto;
     display: inline-block;
     text-align: center;
 }
+
 .app-title {
     font-size: 28px;
     font-weight: 700;
-    color: #fff;
+    color: #FFFFFF;
     cursor: pointer;
     display: block;
     text-align: center;
-    letter-spacing: 1px;
+    letter-spacing: 0.5px;
     margin: 0;
 }
+
 #btcRateDisplay {
     display: block;
     text-align: center;
     font-size: 14px;
-    color: #a3bffa; /* Lighter for contrast */
+    color: rgba(255, 255, 255, 0.8);
     margin: 8px 0 0 0;
     letter-spacing: 0.5px;
+    font-weight: 500;
+}
+
+/* Coinbase-style receipt box */
+.transaction-box {
+    border-color: #353945;
+    background-color: #131416;
+}
+
+.transaction-box h3 {
+    color: #0052FF;
+    border-bottom: 1px solid #353945;
+    padding-bottom: 12px;
+}
+
+/* Copy icon for wallet address */
+.wallet-details:before {
+    content: "";
+    position: absolute;
+    right: 16px;
+    top: 16px;
+    width: 20px;
+    height: 20px;
+    background-color: #A9ABAD;
+    mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M19,21H8V7H19M19,5H8A2,2 0 0,0 6,7V21A2,2 0 0,0 8,23H19A2,2 0 0,0 21,21V7A2,2 0 0,0 19,5M16,1H4A2,2 0 0,0 2,3V17H4V3H16V1Z' /%3E%3C/svg%3E");
+    mask-size: contain;
+    mask-repeat: no-repeat;
+    -webkit-mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M19,21H8V7H19M19,5H8A2,2 0 0,0 6,7V21A2,2 0 0,0 8,23H19A2,2 0 0,0 21,21V7A2,2 0 0,0 19,5M16,1H4A2,2 0 0,0 2,3V17H4V3H16V1Z' /%3E%3C/svg%3E");
+    -webkit-mask-size: contain;
+    -webkit-mask-repeat: no-repeat;
+    cursor: pointer;
+    opacity: 0.6;
 }
