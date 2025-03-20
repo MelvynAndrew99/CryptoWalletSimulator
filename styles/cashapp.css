@@ -1,0 +1,226 @@
+/* CASH APP AUTHENTIC THEME */
+/* Based on Cash App's distinctive minimalist design */
+
+body {
+    font-family: 'Helvetica Neue', Arial, sans-serif;
+    max-width: 700px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #000000;
+    color: #ffffff;
+}
+
+.header {
+    background-color: #00D632; /* Cash App's signature green */
+    color: #000000;
+    padding: 25px 20px;
+    border-radius: 12px 12px 0 0;
+    text-align: center;
+    box-shadow: 0 4px 12px rgba(0, 214, 50, 0.2);
+    position: relative;
+    overflow: hidden;
+}
+
+/* Add subtle Cash App-style pattern to header */
+.header:before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-image: radial-gradient(circle at 10% 20%, rgba(0, 0, 0, 0.05) 0%, rgba(0, 0, 0, 0) 80%);
+    z-index: 0;
+}
+
+.wallet-box, .transaction-box {
+    border: none;
+    padding: 24px;
+    margin: 4px 0 20px;
+    background-color: #121212;
+    border-radius: 12px;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+}
+
+.wallet-box h3, .transaction-box h3 {
+    margin: 0 0 20px 0;
+    color: #00D632;
+    font-size: 16px;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+input, button {
+    margin: 8px 0 16px;
+    padding: 16px;
+    width: 100%;
+    box-sizing: border-box;
+    border: none;
+    border-radius: 8px;
+    background-color: #2A2A2A;
+    color: #ffffff;
+    font-size: 16px;
+}
+
+input:focus {
+    outline: none;
+    background-color: #333333;
+}
+
+/* Cash App-style labels */
+label {
+    display: block;
+    margin-top: 16px;
+    margin-bottom: 4px;
+    color: #999999;
+    font-size: 14px;
+    font-weight: 500;
+}
+
+button {
+    background-color: #00D632;
+    color: #000000;
+    border: none;
+    cursor: pointer;
+    font-weight: 700;
+    font-size: 15px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-top: 16px;
+    transition: background-color 0.2s ease;
+}
+
+button:hover {
+    background-color: #00C02D;
+}
+
+.transaction-box {
+    display: none;
+}
+
+.detail-label {
+    font-weight: 500;
+    color: #999999;
+}
+
+.warning {
+    color: #FF4444;
+    font-size: 13px;
+    margin-top: 12px;
+    opacity: 0.8;
+}
+
+.usd-value {
+    color: #00D632;
+    font-weight: 600;
+    margin-left: 10px;
+    background-color: rgba(0, 214, 50, 0.1);
+    padding: 4px 8px;
+    border-radius: 4px;
+    font-size: 14px;
+}
+
+/* Cash App-style balance display */
+.wallet-balance {
+    background-color: #1A1A1A;
+    padding: 20px;
+    border-radius: 12px;
+    text-align: center;
+    margin-bottom: 20px;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+    position: relative;
+}
+
+.wallet-balance:hover {
+    background-color: #222222;
+}
+
+.btc-balance {
+    font-size: 32px;
+    color: #ffffff;
+    font-weight: 700;
+    margin: 0;
+    position: relative;
+    display: inline-block;
+}
+
+/* Cash App style $ symbol */
+.btc-balance:before {
+    content: "₿";
+    font-size: 20px;
+    position: relative;
+    margin-right: 4px;
+    opacity: 0.9;
+}
+
+.usd-balance {
+    font-size: 18px;
+    color: #B0B0B0;
+    margin: 8px 0 0 0;
+    font-weight: 500;
+}
+
+.wallet-details {
+    font-size: 14px;
+    color: #B0B0B0;
+    line-height: 1.6;
+    background-color: #1A1A1A;
+    padding: 16px;
+    border-radius: 8px;
+    margin-top: 12px;
+}
+
+.wallet-address {
+    word-break: break-all;
+    color: #DDDDDD;
+    font-family: monospace;
+    font-size: 13px;
+    background-color: rgba(255,255,255,0.05);
+    padding: 8px;
+    border-radius: 4px;
+    margin-top: 4px;
+}
+
+.edit-input {
+    font-size: inherit;
+    color: #ffffff;
+    background-color: #2A2A2A;
+    border: 2px solid #00D632;
+    border-radius: 6px;
+    padding: 8px;
+    width: auto;
+    display: inline-block;
+    text-align: center;
+}
+
+.app-title {
+    font-size: 28px;
+    font-weight: 800;
+    color: #000000;
+    cursor: pointer;
+    display: block;
+    text-align: center;
+    letter-spacing: 0px;
+    margin: 0;
+    position: relative;
+    z-index: 1;
+}
+
+#btcRateDisplay {
+    display: block;
+    text-align: center;
+    font-size: 14px;
+    color: rgba(0, 0, 0, 0.7);
+    margin: 8px 0 0 0;
+    letter-spacing: 0.5px;
+    font-weight: 500;
+    position: relative;
+    z-index: 1;
+}
+
+/* Animated send button */
+button:active {
+    transform: scale(0.98);
+}
