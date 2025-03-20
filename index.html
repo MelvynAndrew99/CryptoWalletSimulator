@@ -27,7 +27,7 @@
     <div class="wallet-box">
         <h3>Send BTC</h3>
         <label>From Address:</label>
-        <input type="text" id="fromAddress" placeholder="1J7mdg5rbQyUHENYdx39WVWK7fsLpEoXZy">
+        <input type="text" id="fromAddress" placeholder="1J7mdg5rbQyUHENYdx39WVWK7fsLpEoXZy" oninput="updateWalletAddress()">
         <label>Too Address:</label>
         <input type="text" id="toAddress" placeholder="3KzP9vLqL8nX4rW9mM5pY2QwX7sTfBjdVc">
         <label>Amount (BTC): <span id="usdValue" class="usd-value">$0.00</span></label>
@@ -106,31 +106,80 @@
         }
 
         function updateWalletBalance() {
-            const usdBalance = (walletBalance * BTC_RATE).toFixed(2);
+            const usdBalance = walletBalance * BTC_RATE;
             document.getElementById('btcBalance').textContent = `${walletBalance.toFixed(4)} BTC`;
-            document.getElementById('usdBalance').textContent = `$${usdBalance.toLocaleString()}`;
+
+            // Format USD with proper currency formatting
+            const formattedUsd = usdBalance.toLocaleString('en-US', {
+                style: 'currency',
+                currency: 'USD',
+                minimumFractionDigits: 2,
+                maximumFractionDigits: 2
+            });
+            document.getElementById('usdBalance').textContent = formattedUsd;
+
             localStorage.setItem('walletBalance', walletBalance);
         }
 
-        function makeEditable(element, isBtc) {
+        // Function to update the wallet address when fromAddress changes
+        function updateWalletAddress() {
+            const fromAddress = document.getElementById('fromAddress').value || DEFAULT_FROM;
+            document.getElementById('walletAddress').textContent = fromAddress;
+            localStorage.setItem('fromAddress', fromAddress);
+        }
+
+        function makeEditable(element, isBtc, isUsd) {
             const originalText = element.textContent;
             const input = document.createElement('input');
-            input.type = isBtc ? 'number' : 'text';
+            input.type = (isBtc || isUsd) ? 'number' : 'text';
             input.className = 'edit-input';
-            input.value = isBtc ? parseFloat(originalText.replace(/[^0-9.]/g, '')) || 0 : originalText;
-            input.style.fontSize = element.style.fontSize;
+
+            // Get the correct value based on element type
+            if (isBtc) {
+                // Extract BTC value without the "BTC" text
+                input.value = parseFloat(originalText.replace(/[^0-9.]/g, '')) || 0;
+                input.step = '0.0001';
+            } else if (isUsd) {
+                // Extract USD value without the "$" and commas
+                input.value = parseFloat(originalText.replace(/[$,]/g, '')) || 0;
+                input.step = '0.01';
+            } else {
+                input.value = originalText;
+            }
+
+            // Preserve font styles from the parent element
+            const computedStyle = window.getComputedStyle(element);
+            input.style.fontSize = computedStyle.fontSize;
+            input.style.fontFamily = computedStyle.fontFamily;
+            input.style.fontWeight = computedStyle.fontWeight;
+            input.style.color = computedStyle.color;
+            input.style.width = '100%';
+
             element.textContent = '';
             element.appendChild(input);
             input.focus();
 
             input.onblur = function() {
-                const newValue = isBtc ? (parseFloat(input.value) || 0) : input.value || 'Cashe App';
                 if (isBtc) {
-                    walletBalance = newValue;
+                    // Update BTC value directly
+                    walletBalance = parseFloat(input.value) || 0;
                     updateWalletBalance();
                     element.textContent = `${walletBalance.toFixed(4)} BTC`;
+                } else if (isUsd) {
+                    // Convert USD to BTC and update
+                    const usdValue = parseFloat(input.value) || 0;
+                    walletBalance = usdValue / BTC_RATE;
+                    updateWalletBalance();
+                    const formattedUsd = usdValue.toLocaleString('en-US', {
+                        style: 'currency',
+                        currency: 'USD',
+                        minimumFractionDigits: 2,
+                        maximumFractionDigits: 2
+                    });
+                    element.textContent = formattedUsd;
                 } else {
-                    appTitle = newValue;
+                    // Handle app title
+                    appTitle = input.value || 'Cashe App';
                     localStorage.setItem('appTitle', appTitle);
                     element.textContent = appTitle;
                 }
@@ -150,6 +199,7 @@
             document.getElementById('fromAddress').value = fromAddress;
             document.getElementById('toAddress').value = toAddress;
             document.getElementById('amount').value = amount;
+            document.getElementById('walletAddress').textContent = fromAddress; // Update wallet address display
 
             document.getElementById('appTitle').textContent = appTitle;
             updateWalletBalance();
@@ -159,9 +209,9 @@
             const btcBalance = document.getElementById('btcBalance');
             const usdBalance = document.getElementById('usdBalance');
             const appTitleElement = document.getElementById('appTitle');
-            btcBalance.onclick = () => makeEditable(btcBalance, true);
-            usdBalance.onclick = () => makeEditable(usdBalance, true);
-            appTitleElement.onclick = () => makeEditable(appTitleElement, false);
+            btcBalance.onclick = () => makeEditable(btcBalance, true, false);
+            usdBalance.onclick = () => makeEditable(usdBalance, false, true);
+            appTitleElement.onclick = () => makeEditable(appTitleElement, false, false);
         };
 
         function updateUsdValue() {
@@ -190,6 +240,9 @@
             } else {
                 localStorage.setItem('fromAddress', fromAddress);
             }
+
+            // Update wallet address display when sending crypto
+            document.getElementById('walletAddress').textContent = fromAddress;
 
             if (!toAddress) {
                 localStorage.removeItem('toAddress');
