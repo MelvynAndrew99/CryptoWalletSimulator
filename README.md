@@ -4,8 +4,8 @@ A collection of lightweight, local tools to create fake cryptocurrency wallet an
 
 ## Available Simulators
 
-- **Crypto Wallet Simulator**: [https://melvynandrew99.github.io/CryptoWalletSimulator/](https://melvynandrew99.github.io/CryptoWalletSimulator/) - Simulate cryptocurrency wallet balances and transactions
-- **Cash App Simulator**: [https://melvynandrew99.github.io/CryptoWalletSimulator/cash.html](https://melvynandrew99.github.io/CryptoWalletSimulator/cash.html) - Simulate Cash App payment screens with different statuses
+- **Crypto Wallet Simulator**: [https://melvynandrew99.github.io/CryptoWalletSimulator/](https://melvynandrew99.github.io/CryptoWalletSimulator/) - Simulate Crypto Payments
+- **Cash App Simulator**: [https://melvynandrew99.github.io/CryptoWalletSimulator/cash.html](https://melvynandrew99.github.io/CryptoWalletSimulator/cash.html) - Simulate Cash Payments
 
 Repo: [https://github.com/MelvynAndrew99/CryptoWalletSimulator](https://github.com/MelvynAndrew99/CryptoWalletSimulator)
 

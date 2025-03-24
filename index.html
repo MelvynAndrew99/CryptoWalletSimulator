@@ -5,8 +5,38 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>CashAppLite</title>
     <link id="themeStylesheet" rel="stylesheet" href="styles/default.css">
+    <style>
+    .controls-hint {
+        position: fixed;
+        bottom: 10px;
+        left: 10px;
+        background-color: rgba(0,0,0,0.7);
+        color: white;
+        padding: 4px 8px;
+        border-radius: 4px;
+        font-size: 12px;
+        opacity: 0.7;
+        z-index: 1000;
+    }
+    .controls-hint:hover {
+        opacity: 1;
+    }
+    .controls-hint div {
+        margin: 2px 0;
+    }
+    .controls-hint b {
+        color: #10b981;
+        font-weight: 600;
+    }
+    </style>
 </head>
 <body>
+    <div class="controls-hint" id="controlsHint">
+        <div><b>Left/Right arrows</b>: Switch themes</div>
+        <div><b>H</b>: Toggle this help</div>
+        <div>Current theme: <b id="currentThemeName">Default</b></div>
+    </div>
+
     <div class="header">
         <div class="app-title" id="appTitle">Cashe App</div>
         <p id="btcRateDisplay">BTC Trading • 1 BTC = $83,777.16 USD</p>
@@ -61,7 +91,35 @@
             'styles/earlyinternet.css',
             'styles/retro90s.css'
         ];
+
+        // Theme name mapping
+        const themeNames = [
+            'Default',
+            'Binance',
+            'Cash App',
+            'Coinbase',
+            'Early Internet',
+            'Retro 90s'
+        ];
+
         let currentThemeIndex = parseInt(localStorage.getItem('themeIndex')) || 0;
+
+        // Add toggle help functionality
+        let controlsVisible = true;
+        let controlsTimer = null;
+
+        function toggleControlsVisibility() {
+            controlsVisible = !controlsVisible;
+            document.getElementById('controlsHint').style.display = controlsVisible ? 'block' : 'none';
+        }
+
+        function hideControlsTimer() {
+            if (controlsTimer) clearTimeout(controlsTimer);
+            controlsTimer = setTimeout(() => {
+                controlsVisible = false;
+                document.getElementById('controlsHint').style.display = 'none';
+            }, 3000);
+        }
 
         // Function to update theme and handle fallback
         function setTheme(index) {
@@ -70,13 +128,22 @@
             stylesheet.href = themes[currentThemeIndex];
             localStorage.setItem('themeIndex', currentThemeIndex);
 
+            // Update the theme name display
+            updateThemeName();
+
             // Check if the stylesheet loaded successfully
             stylesheet.onerror = function() {
                 console.error('Theme failed to load:', themes[currentThemeIndex]);
                 currentThemeIndex = 0; // Fallback to default
                 stylesheet.href = themes[currentThemeIndex];
                 localStorage.setItem('themeIndex', currentThemeIndex);
+                updateThemeName();
             };
+        }
+
+        // Update the theme name display
+        function updateThemeName() {
+            document.getElementById('currentThemeName').textContent = themeNames[currentThemeIndex];
         }
 
         // Theme switching with arrow keys
@@ -87,6 +154,8 @@
             } else if (event.key === 'ArrowLeft') {
                 let newIndex = (currentThemeIndex - 1 + themes.length) % themes.length;
                 setTheme(newIndex);
+            } else if (event.key === 'h' || event.key === 'H') {
+                toggleControlsVisibility();
             }
         });
 
@@ -212,6 +281,10 @@
             btcBalance.onclick = () => makeEditable(btcBalance, true, false);
             usdBalance.onclick = () => makeEditable(usdBalance, false, true);
             appTitleElement.onclick = () => makeEditable(appTitleElement, false, false);
+
+            // Initialize controls hint
+            updateThemeName();
+            document.getElementById('controlsHint').addEventListener('mouseleave', hideControlsTimer);
         };
 
         function updateUsdValue() {
