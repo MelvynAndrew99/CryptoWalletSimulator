@@ -286,7 +286,7 @@
                     <div class="detail-content">
                         <div class="detail-title">Payment between</div>
                         <div class="detail-info">To: <span class="editable" contenteditable="true" :contenteditable="editMode" x-text="recipientIdentifier"></span></div>
-                        <div class="detail-info">From: <span class="editable" contenteditable="true" :contenteditable="editMode" x-text="senderName"></span></div>
+                        <div class="detail-info">From: <span class="editable" contenteditable="true" x-text="senderName"></span></div>
                     </div>
                 </div>
             </template>
@@ -299,7 +299,7 @@
                     </div>
                     <div class="detail-content">
                         <div class="detail-title">Payment source</div>
-                        <div class="detail-info"><span class="editable" contenteditable="true" :contenteditable="editMode" x-text="paymentSource"></span></div>
+                        <div class="detail-info"><span class="editable" contenteditable="true" x-text="paymentSource"></span></div>
                     </div>
                 </div>
             </template>
@@ -511,18 +511,12 @@
                     const currentIndex = this.states.indexOf(this.currentState);
                     const nextIndex = (currentIndex + 1) % this.states.length;
                     this.currentState = this.states[nextIndex];
-
-                    // Generate a new transaction number when state changes
-                    this.generateRandomTransactionNumber();
                 },
 
                 previousState() {
                     const currentIndex = this.states.indexOf(this.currentState);
                     const prevIndex = (currentIndex - 1 + this.states.length) % this.states.length;
                     this.currentState = this.states[prevIndex];
-
-                    // Generate a new transaction number when state changes
-                    this.generateRandomTransactionNumber();
                 },
 
                 updateRecipientIdentifier(event) {
