@@ -34,6 +34,7 @@
     <div class="controls-hint" id="controlsHint">
         <div><b>Left/Right arrows</b>: Switch themes</div>
         <div><b>H</b>: Toggle this help</div>
+        <div><b>Space</b>: Switch to Cash App</div>
         <div>Current theme: <b id="currentThemeName">Default</b></div>
     </div>
 
@@ -156,6 +157,11 @@
                 setTheme(newIndex);
             } else if (event.key === 'h' || event.key === 'H') {
                 toggleControlsVisibility();
+            } else if (event.key === ' ') { // Space key
+                // Determine current path and create relative path to cash.html
+                const currentPath = window.location.pathname;
+                const basePath = currentPath.substring(0, currentPath.lastIndexOf('/') + 1);
+                window.location.href = basePath + 'cash.html';
             }
         });
 
